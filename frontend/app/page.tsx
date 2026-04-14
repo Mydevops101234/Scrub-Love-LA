@@ -1,65 +1,218 @@
-import Image from "next/image";
+import Navbar from "@/components/layout/Navbar";
+import HeroSlider from "@/components/ui/HeroSlider";
+import CategoryCircles from "@/components/ui/CategoryCircles";
+import ProductCard from "@/components/ui/ProductCard";
+import Link from "next/link";
+
+const featured = [
+  { id: 1, name: "Classic Scrub Set", price: 49.99, category: "Scrubs", color: "#e8f4f8" },
+  { id: 2, name: "Fitted Scrub Top", price: 29.99, category: "Scrubs", color: "#f8f0e8" },
+  { id: 3, name: "Scrub Jogger Pants", price: 34.99, category: "Scrubs", color: "#f0f8e8" },
+  { id: 4, name: "Medical Romper", price: 59.99, category: "Rompers", color: "#f8e8f0" },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main style={{ minHeight: "100vh", background: "#f5f5f5" }}>
+      <Navbar />
+
+      {/* Announcement Bar */}
+      <div style={{
+        background: "#b8860b",
+        color: "white",
+        textAlign: "center",
+        padding: "0.5rem",
+        fontFamily: "Jost, sans-serif",
+        fontSize: "0.8rem",
+        letterSpacing: "0.15em",
+      }}>
+        FREE SHIPPING ON ORDERS OVER $75 — USE CODE: SCRUBLOVE
+      </div>
+
+      {/* Hero Slider */}
+      <HeroSlider />
+
+      {/* Category Circles */}
+      <CategoryCircles />
+
+      {/* Featured Products */}
+      <section style={{ padding: "4rem 2rem", maxWidth: "1400px", margin: "0 auto" }}>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "2rem",
+          borderBottom: "2px solid #1a1a1a",
+          paddingBottom: "1rem",
+        }}>
+          <h2 style={{
+            fontFamily: "Cormorant Garamond, serif",
+            fontSize: "2rem",
+            fontWeight: 600,
+          }}>Featured Products</h2>
+          <Link href="/shop" style={{
+            fontFamily: "Jost, sans-serif",
+            fontSize: "0.8rem",
+            letterSpacing: "0.1em",
+            color: "#b8860b",
+            textDecoration: "none",
+            textTransform: "uppercase",
+          }}>View All →</Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: "1.5rem",
+        }}>
+          {featured.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* Promo Banners */}
+      <section style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: "1rem",
+        padding: "0 2rem 4rem",
+        maxWidth: "1400px",
+        margin: "0 auto",
+      }}>
+        <div style={{
+          background: "#1a1a1a",
+          padding: "3rem",
+          color: "white",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <p style={{
+            fontFamily: "Jost, sans-serif",
+            fontSize: "0.75rem",
+            letterSpacing: "0.3em",
+            color: "#b8860b",
+            marginBottom: "1rem",
+            textTransform: "uppercase",
+          }}>New Arrivals</p>
+          <h3 style={{
+            fontFamily: "Cormorant Garamond, serif",
+            fontSize: "2.5rem",
+            fontWeight: 300,
+            marginBottom: "1.5rem",
+            lineHeight: 1.2,
+          }}>Premium<br />Scrub Sets</h3>
+          <Link href="/shop" style={{
+            display: "inline-block",
+            background: "#b8860b",
+            color: "white",
+            padding: "0.75rem 2rem",
+            fontFamily: "Jost, sans-serif",
+            fontSize: "0.75rem",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+          }}>Shop Now</Link>
+        </div>
+
+        <div style={{
+          background: "#e8002a",
+          padding: "3rem",
+          color: "white",
+          position: "relative",
+          overflow: "hidden",
+        }}>
+          <p style={{
+            fontFamily: "Jost, sans-serif",
+            fontSize: "0.75rem",
+            letterSpacing: "0.3em",
+            color: "rgba(255,255,255,0.7)",
+            marginBottom: "1rem",
+            textTransform: "uppercase",
+          }}>Limited Time</p>
+          <h3 style={{
+            fontFamily: "Cormorant Garamond, serif",
+            fontSize: "2.5rem",
+            fontWeight: 300,
+            marginBottom: "1.5rem",
+            lineHeight: 1.2,
+          }}>Medical<br />Rompers</h3>
+          <Link href="/shop" style={{
+            display: "inline-block",
+            background: "white",
+            color: "#e8002a",
+            padding: "0.75rem 2rem",
+            fontFamily: "Jost, sans-serif",
+            fontSize: "0.75rem",
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            textDecoration: "none",
+          }}>Shop Now</Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer style={{ background: "#1a1a1a", color: "white", padding: "4rem 2rem 2rem" }}>
+        <div style={{
+          maxWidth: "1400px",
+          margin: "0 auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "3rem",
+          marginBottom: "3rem",
+        }}>
+          <div>
+            <p style={{
+              fontFamily: "Cormorant Garamond, serif",
+              fontSize: "1.4rem",
+              color: "#e8002a",
+              marginBottom: "1rem",
+            }}>SCRUB LOVE <span style={{ color: "#b8860b" }}>LA</span></p>
+            <p style={{
+              fontFamily: "Jost, sans-serif",
+              fontSize: "0.85rem",
+              color: "#888",
+              lineHeight: 1.8,
+            }}>Louisiana's premier medical apparel brand. Wear with heart.</p>
+          </div>
+          {[
+            { title: "Shop", links: ["Scrubs", "Rompers", "New Arrivals", "Sale"] },
+            { title: "Help", links: ["Size Guide", "Shipping", "Returns", "Contact"] },
+            { title: "Company", links: ["About Us", "Careers", "Press", "Sustainability"] },
+          ].map((col) => (
+            <div key={col.title}>
+              <p style={{
+                fontFamily: "Jost, sans-serif",
+                fontSize: "0.75rem",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                marginBottom: "1.5rem",
+                color: "#b8860b",
+              }}>{col.title}</p>
+              {col.links.map((link) => (
+                <p key={link} style={{
+                  fontFamily: "Jost, sans-serif",
+                  fontSize: "0.85rem",
+                  color: "#888",
+                  marginBottom: "0.75rem",
+                  cursor: "pointer",
+                }}>{link}</p>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div style={{
+          borderTop: "1px solid #333",
+          paddingTop: "2rem",
+          textAlign: "center",
+          fontFamily: "Jost, sans-serif",
+          fontSize: "0.75rem",
+          color: "#555",
+          letterSpacing: "0.1em",
+        }}>
+          © 2024 Scrub Love LA. All rights reserved.
+        </div>
+      </footer>
+    </main>
   );
 }

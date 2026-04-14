@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --gold: #b8860b;
+  --gold-light: #d4aa50;
+  --red: #e8002a;
+  --cream: #faf8f5;
+  --dark: #1a1a1a;
+  --gray: #6b6b6b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Jost', sans-serif;
+  background-color: var(--cream);
+  color: var(--dark);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.gold-text {
+  color: var(--gold);
+}
+
+.red-text {
+  color: var(--red);
+}

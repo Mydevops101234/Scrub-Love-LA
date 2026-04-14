@@ -39,6 +39,43 @@ A production-grade e-commerce platform built for a Louisiana-based medical scrub
 ---
 
 ## Project Structure
+
+    scrub-love-la/
+    ├── frontend/                  # Next.js application
+    │   ├── app/                   # App router pages
+    │   │   ├── page.tsx           # Homepage
+    │   │   ├── shop/              # Shop listing page
+    │   │   │   └── [id]/          # Product detail page
+    │   │   └── cart/              # Shopping cart page
+    │   ├── components/
+    │   │   ├── layout/
+    │   │   │   └── Navbar.tsx     # Navigation bar
+    │   │   └── ui/
+    │   │       ├── HeroSlider.tsx     # Animated hero banner
+    │   │       ├── CategoryCircles.tsx # Category navigation
+    │   │       ├── ProductCard.tsx    # Product grid card
+    │   │       ├── ProductDetail.tsx  # Product detail view
+    │   │       ├── ShopClient.tsx     # Shop with filters
+    │   │       └── CartClient.tsx     # Cart with order summary
+    │   └── public/                # Static assets
+    ├── backend/                   # Node.js + Express REST API
+    │   ├── routes/
+    │   │   ├── auth.js            # Auth routes
+    │   │   ├── products.js        # Product routes
+    │   │   ├── orders.js          # Order routes
+    │   │   └── payments.js        # Stripe payment routes
+    │   ├── middleware/
+    │   │   └── auth.js            # JWT middleware
+    │   ├── config/
+    │   │   └── db.js              # PostgreSQL connection
+    │   └── server.js              # Express entry point
+    ├── database/
+    │   └── schema.sql             # PostgreSQL schema + seed data
+    ├── docker-compose.yml         # Full stack container setup
+    └── .github/
+        └── workflows/
+            └── deploy.yml         # CI/CD pipeline
+
 ---
 
 ## Getting Started
@@ -51,59 +88,52 @@ A production-grade e-commerce platform built for a Louisiana-based medical scrub
 ### Local Development
 
 **1. Clone the repository**
-```bash
-git clone https://github.com/Mydevops101234/Scrub-Love-LA.git
-cd Scrub-Love-LA
-```
+
+    git clone https://github.com/Mydevops101234/Scrub-Love-LA.git
+    cd Scrub-Love-LA
 
 **2. Setup the backend**
-```bash
-cd backend
-cp .env.example .env
-npm install
-npm run dev
-```
+
+    cd backend
+    cp .env.example .env
+    npm install
+    npm run dev
 
 **3. Setup the frontend**
-```bash
-cd frontend
-npm install
-npm run dev
-```
+
+    cd frontend
+    npm install
+    npm run dev
 
 **4. Setup the database**
-```bash
-sudo -u postgres psql -d scrublovela -f database/schema.sql
-```
+
+    sudo -u postgres psql -d scrublovela -f database/schema.sql
 
 **5. Run with Docker**
-```bash
-docker-compose up --build
-```
+
+    docker-compose up --build
 
 ---
 
 ## Environment Variables
 
-```bash
-# Backend .env
-PORT=5000
-NODE_ENV=development
-CLIENT_URL=http://localhost:3000
-DATABASE_URL=postgresql://user:password@localhost:5432/scrublovela
-JWT_SECRET=your_jwt_secret
-STRIPE_SECRET_KEY=your_stripe_secret_key
-```
+    # Backend .env
+    PORT=5000
+    NODE_ENV=development
+    CLIENT_URL=http://localhost:3000
+    DATABASE_URL=postgresql://user:password@localhost:5432/scrublovela
+    JWT_SECRET=your_jwt_secret
+    STRIPE_SECRET_KEY=your_stripe_secret_key
 
 ---
 
 ## CI/CD Pipeline
 
-Every push to `main` triggers the GitHub Actions pipeline:
+Every push to main triggers the GitHub Actions pipeline:
 
-1. **Test Backend** — installs dependencies and verifies entry point
-2. **Test Frontend** — installs dependencies and runs production build
-3. **Build Docker Images** — builds both frontend and backend containers
+1. Test Backend — installs dependencies and verifies entry point
+2. Test Frontend — installs dependencies and runs production build
+3. Build Docker Images — builds both frontend and backend containers
 
 ---
 
@@ -124,4 +154,4 @@ Every push to `main` triggers the GitHub Actions pipeline:
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+MIT — see LICENSE for details.

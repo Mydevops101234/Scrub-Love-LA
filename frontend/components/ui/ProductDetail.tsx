@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 interface Product {
   id: number;
@@ -18,16 +19,25 @@ export default function ProductDetail({ product }: { product: Product }) {
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
+  const { addItem } = useCart();
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) return;
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      size: selectedSize,
+      color: selectedColor,
+      quantity,
+      bgColor: product.color,
+    });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
 
   return (
     <div style={{ maxWidth: "1400px", margin: "0 auto", padding: "3rem 2rem" }}>
-      {/* Breadcrumb */}
       <div style={{
         fontFamily: "Jost, sans-serif",
         fontSize: "0.8rem",
@@ -48,7 +58,6 @@ export default function ProductDetail({ product }: { product: Product }) {
         gap: "4rem",
         alignItems: "start",
       }}>
-        {/* Product Image */}
         <div>
           <div style={{
             width: "100%",
@@ -66,7 +75,6 @@ export default function ProductDetail({ product }: { product: Product }) {
               letterSpacing: "0.1em",
             }}>Product Image</span>
           </div>
-          {/* Thumbnail row */}
           <div style={{ display: "flex", gap: "0.75rem" }}>
             {[1, 2, 3].map((i) => (
               <div key={i} style={{
@@ -81,7 +89,6 @@ export default function ProductDetail({ product }: { product: Product }) {
           </div>
         </div>
 
-        {/* Product Info */}
         <div>
           <span style={{
             display: "inline-block",
@@ -119,7 +126,6 @@ export default function ProductDetail({ product }: { product: Product }) {
             marginBottom: "2rem",
           }}>{product.description}</p>
 
-          {/* Color Selector */}
           <div style={{ marginBottom: "1.5rem" }}>
             <p style={{
               fontFamily: "Jost, sans-serif",
@@ -131,25 +137,20 @@ export default function ProductDetail({ product }: { product: Product }) {
             }}>Color: <span style={{ color: "#b8860b" }}>{selectedColor || "Select"}</span></p>
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {product.colors.map((c) => (
-                <button
-                  key={c}
-                  onClick={() => setSelectedColor(c)}
-                  style={{
-                    padding: "0.4rem 1rem",
-                    fontFamily: "Jost, sans-serif",
-                    fontSize: "0.8rem",
-                    border: selectedColor === c ? "2px solid #1a1a1a" : "1px solid #ddd",
-                    background: selectedColor === c ? "#1a1a1a" : "white",
-                    color: selectedColor === c ? "white" : "#1a1a1a",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                  }}
-                >{c}</button>
+                <button key={c} onClick={() => setSelectedColor(c)} style={{
+                  padding: "0.4rem 1rem",
+                  fontFamily: "Jost, sans-serif",
+                  fontSize: "0.8rem",
+                  border: selectedColor === c ? "2px solid #1a1a1a" : "1px solid #ddd",
+                  background: selectedColor === c ? "#1a1a1a" : "white",
+                  color: selectedColor === c ? "white" : "#1a1a1a",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}>{c}</button>
               ))}
             </div>
           </div>
 
-          {/* Size Selector */}
           <div style={{ marginBottom: "2rem" }}>
             <p style={{
               fontFamily: "Jost, sans-serif",
@@ -161,26 +162,21 @@ export default function ProductDetail({ product }: { product: Product }) {
             }}>Size: <span style={{ color: "#b8860b" }}>{selectedSize || "Select"}</span></p>
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
               {product.sizes.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setSelectedSize(s)}
-                  style={{
-                    width: "3rem",
-                    height: "3rem",
-                    fontFamily: "Jost, sans-serif",
-                    fontSize: "0.8rem",
-                    border: selectedSize === s ? "2px solid #1a1a1a" : "1px solid #ddd",
-                    background: selectedSize === s ? "#1a1a1a" : "white",
-                    color: selectedSize === s ? "white" : "#1a1a1a",
-                    cursor: "pointer",
-                    transition: "all 0.2s",
-                  }}
-                >{s}</button>
+                <button key={s} onClick={() => setSelectedSize(s)} style={{
+                  width: "3rem",
+                  height: "3rem",
+                  fontFamily: "Jost, sans-serif",
+                  fontSize: "0.8rem",
+                  border: selectedSize === s ? "2px solid #1a1a1a" : "1px solid #ddd",
+                  background: selectedSize === s ? "#1a1a1a" : "white",
+                  color: selectedSize === s ? "white" : "#1a1a1a",
+                  cursor: "pointer",
+                  transition: "all 0.2s",
+                }}>{s}</button>
               ))}
             </div>
           </div>
 
-          {/* Quantity */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2rem" }}>
             <p style={{
               fontFamily: "Jost, sans-serif",
@@ -189,40 +185,16 @@ export default function ProductDetail({ product }: { product: Product }) {
               textTransform: "uppercase",
             }}>Qty:</p>
             <div style={{ display: "flex", alignItems: "center", border: "1px solid #ddd", background: "white" }}>
-              <button
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                style={{
-                  width: "2.5rem",
-                  height: "2.5rem",
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                  fontSize: "1.2rem",
-                  color: "#1a1a1a",
-                }}
-              >−</button>
-              <span style={{
-                width: "2.5rem",
-                textAlign: "center",
-                fontFamily: "Jost, sans-serif",
-                fontSize: "0.9rem",
-              }}>{quantity}</span>
-              <button
-                onClick={() => setQuantity(quantity + 1)}
-                style={{
-                  width: "2.5rem",
-                  height: "2.5rem",
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                  fontSize: "1.2rem",
-                  color: "#1a1a1a",
-                }}
-              >+</button>
+              <button onClick={() => setQuantity(Math.max(1, quantity - 1))} style={{
+                width: "2.5rem", height: "2.5rem", border: "none", background: "none", cursor: "pointer", fontSize: "1.2rem",
+              }}>−</button>
+              <span style={{ width: "2.5rem", textAlign: "center", fontFamily: "Jost, sans-serif", fontSize: "0.9rem" }}>{quantity}</span>
+              <button onClick={() => setQuantity(quantity + 1)} style={{
+                width: "2.5rem", height: "2.5rem", border: "none", background: "none", cursor: "pointer", fontSize: "1.2rem",
+              }}>+</button>
             </div>
           </div>
 
-          {/* Add to Cart */}
           <button
             onClick={handleAddToCart}
             disabled={!selectedSize || !selectedColor}
@@ -255,12 +227,7 @@ export default function ProductDetail({ product }: { product: Product }) {
             cursor: "pointer",
           }}>Buy Now</button>
 
-          {/* Product Details */}
-          <div style={{
-            marginTop: "2rem",
-            borderTop: "1px solid #eee",
-            paddingTop: "1.5rem",
-          }}>
+          <div style={{ marginTop: "2rem", borderTop: "1px solid #eee", paddingTop: "1.5rem" }}>
             {[
               { label: "Material", value: "Premium moisture-wicking fabric" },
               { label: "Fit", value: "Regular fit" },
@@ -275,7 +242,7 @@ export default function ProductDetail({ product }: { product: Product }) {
                 fontFamily: "Jost, sans-serif",
                 fontSize: "0.85rem",
               }}>
-                <span style={{ color: "#888", letterSpacing: "0.05em" }}>{detail.label}</span>
+                <span style={{ color: "#888" }}>{detail.label}</span>
                 <span style={{ color: "#1a1a1a" }}>{detail.value}</span>
               </div>
             ))}

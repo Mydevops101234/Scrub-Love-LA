@@ -2,12 +2,14 @@
 import Link from "next/link";
 
 const categories = [
-  { name: "Scrub Sets", color: "#e8f4f8", textColor: "#1a1a1a", icon: "🥼" },
-  { name: "Scrub Tops", color: "#f8f0e8", textColor: "#1a1a1a", icon: "👕" },
-  { name: "Scrub Pants", color: "#f0f8e8", textColor: "#1a1a1a", icon: "👖" },
-  { name: "Rompers", color: "#f8e8f0", textColor: "#1a1a1a", icon: "👗" },
-  { name: "New Arrivals", color: "#1a1a1a", textColor: "white", icon: "✨" },
-  { name: "Sale", color: "#e8002a", textColor: "white", icon: "🏷️" },
+  { name: "Women", color: "#f8e8f0", icon: "👩‍⚕️" },
+  { name: "Men", color: "#e8f0f8", icon: "👨‍⚕️" },
+  { name: "Scrub Sets", color: "#e8f4f8", icon: "🥼" },
+  { name: "Rompers", color: "#f0e8f8", icon: "👗" },
+  { name: "Lab Coats", color: "#f8f8f8", icon: "🧪" },
+  { name: "Specialty", color: "#f0f8e8", icon: "⚕️" },
+  { name: "New Arrivals", color: "#1a1a1a", icon: "✨" },
+  { name: "Sale", color: "#e8002a", icon: "🏷️" },
 ];
 
 export default function CategoryCircles() {
@@ -50,9 +52,7 @@ export default function CategoryCircles() {
                 (e.currentTarget as HTMLElement).style.border = "3px solid transparent";
                 (e.currentTarget as HTMLElement).style.transform = "scale(1)";
               }}
-            >
-              {cat.icon}
-            </div>
+            >{cat.icon}</div>
             <p style={{
               fontFamily: "Jost, sans-serif",
               fontSize: "0.8rem",
